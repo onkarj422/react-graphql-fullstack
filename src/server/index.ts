@@ -9,6 +9,7 @@ import chalk from "chalk";
 
 import devServer from "./devServer";
 import ssr from "./ssr";
+import api from "./api";
 import config from "../config";
 
 const app = express();
@@ -27,6 +28,8 @@ app.use(express.static(path.resolve(process.cwd(), "public")));
 
 // Enable dev-server in development
 if (__DEV__) devServer(app);
+
+app.use("/v1", api);
 
 // Use React server-side rendering middleware
 app.get("*", ssr);

@@ -1,11 +1,10 @@
-import serialize from "serialize-javascript";
+// import serialize from "serialize-javascript";
 import { minify } from "html-minifier";
 
 export default (
   head: Record<string, any>,
   extractor: Record<string, any>,
-  htmlContent: string,
-  initialState: Record<string, unknown>
+  htmlContent: string
 ): any => {
   const html = `
     <!doctype html>
@@ -39,7 +38,6 @@ export default (
         <script>
           // Use serialize-javascript for mitigating XSS attacks. See the following security issues:
           // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
-          window.__INITIAL_STATE__=${serialize(initialState)};
         </script>
 
         <!-- Insert bundled scripts into <script> tag -->
