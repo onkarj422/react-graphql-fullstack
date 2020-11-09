@@ -1,3 +1,4 @@
 {
-  "watch": ["src/server", "tools/webpack", ".babelrc"]
+  "watch": ["src/server", "tools/webpack", ".babelrc"],
+  "ext": "ts"
 }
