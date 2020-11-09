@@ -1,17 +1,17 @@
-import App from "../app";
-import { asyncHome, asyncUserInfo, NotFound } from "../pages";
+import App from '../app';
+import { asyncHome, asyncUserInfo, NotFound } from '../pages';
 
 export default [
     {
         component: App,
         routes: [
             {
-                path: "/",
+                path: '/',
                 exact: true,
                 component: asyncHome, // Add your route here
             },
             {
-                path: "/UserInfo/:id",
+                path: '/UserInfo/:id',
                 component: asyncUserInfo,
             },
             {

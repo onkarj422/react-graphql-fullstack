@@ -1,20 +1,21 @@
-import path from "path";
-import React from "react";
-import { renderToString } from "react-dom/server";
-import { StaticRouter } from "react-router-dom";
-import { renderRoutes } from "react-router-config";
-import { ChunkExtractor } from "@loadable/server";
-import { Helmet } from "react-helmet";
-import chalk from "chalk";
-import { Request, Response, NextFunction } from "express";
+/* eslint-disable no-console */
+import path from 'path';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
+import { ChunkExtractor } from '@loadable/server';
+import { Helmet } from 'react-helmet';
+import chalk from 'chalk';
+import { Request, Response, NextFunction } from 'express';
 
-import renderHtml from "./renderHtml";
-import routes from "../routes";
+import renderHtml from './renderHtml';
+import routes from '../routes';
 
 export default async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
 ): Promise<void> => {
     // The method for loading data from server-side
     // const loadBranchData = (): Promise<any> => {
@@ -40,10 +41,13 @@ export default async (
     // };
 
     try {
-    // Load data from server-side first
-    // await loadBranchData();
+        // Load data from server-side first
+        // await loadBranchData();
 
-        const statsFile = path.resolve(process.cwd(), "public/loadable-stats.json");
+        const statsFile = path.resolve(
+            process.cwd(),
+            'public/loadable-stats.json',
+        );
         const extractor = new ChunkExtractor({ statsFile });
 
         const staticContext: Record<string, any> = {};
@@ -52,7 +56,7 @@ export default async (
                 {/*
           // @ts-expect-error */}
                 {renderRoutes(routes)}
-            </StaticRouter>
+            </StaticRouter>,
         );
 
         const htmlContent = renderToString(App);
@@ -63,19 +67,19 @@ export default async (
         // Check if the render result contains a redirect, if so we need to set
         // the specific status and redirect header and end the response
         if (staticContext.url) {
-            res.status(301).setHeader("Location", staticContext.url);
+            res.status(301).setHeader('Location', staticContext.url);
             res.end();
 
             return;
         }
 
         // Check page status
-        const status = staticContext.status === "404" ? 404 : 200;
+        const status = staticContext.status === '404' ? 404 : 200;
 
         // Pass the route and initial state into html template
         res.status(status).send(renderHtml(head, extractor, htmlContent));
     } catch (error) {
-        res.status(404).send("Not Found :(");
+        res.status(404).send('Not Found :(');
 
         console.error(chalk.red(`==> 😭  Rendering routes error: ${error}`));
     }

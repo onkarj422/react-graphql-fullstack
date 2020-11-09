@@ -1,15 +1,15 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import React from 'react';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 
-import Loading from "../index";
+import Loading from '../index';
 
-describe("<Loading />", () => {
-    it("renders", () => {
+describe('<Loading />', () => {
+    it('renders', () => {
         const tree = render(
             <MemoryRouter>
                 <Loading />
-            </MemoryRouter>
+            </MemoryRouter>,
         ).container.firstChild;
 
         expect(tree).toMatchSnapshot();

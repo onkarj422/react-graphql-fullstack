@@ -1,17 +1,17 @@
-import React, { memo } from "react";
-import { Helmet } from "react-helmet";
+import React, { memo } from 'react';
+import { Helmet } from 'react-helmet';
 
-import styles from "./styles.module.scss";
+import styles from './styles.module.scss';
 
 interface Props {
-  staticContext?: { status: string };
+    staticContext?: { status: string };
 }
 
 const NotFound = ({ staticContext }: Props) => {
     // We have to check if staticContext exists
     // because it will be undefined if rendered through a BrowserRoute
     /* istanbul ignore next */
-    if (staticContext) staticContext.status = "404";
+    if (staticContext) staticContext.status = '404';
 
     return (
         <div className={styles.NotFound}>

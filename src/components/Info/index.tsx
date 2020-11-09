@@ -1,10 +1,10 @@
-import React, { memo } from "react";
+import React, { memo } from 'react';
 
-import { User } from "../../services/jsonPlaceholder";
-import styles from "./styles.module.scss";
+import { User } from '../../services/jsonPlaceholder';
+import styles from './styles.module.scss';
 
 interface Props {
-  item: User;
+    item: User;
 }
 
 export default memo(({ item }: Props) => (

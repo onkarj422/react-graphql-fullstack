@@ -1,10 +1,10 @@
 // import serialize from "serialize-javascript";
-import { minify } from "html-minifier";
+import { minify } from 'html-minifier';
 
 export default (
     head: Record<string, any>,
     extractor: Record<string, any>,
-    htmlContent: string
+    htmlContent: string,
 ): any => {
     const html = `
     <!doctype html>

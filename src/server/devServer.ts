@@ -1,16 +1,17 @@
-import { Express } from "express";
-import chalk from "chalk";
+/* eslint-disable no-console */
+import { Express } from 'express';
+import chalk from 'chalk';
 
-import config from "../config";
+import config from '../config';
 
 export default (app: Express): void => {
-    const webpack = require("webpack");
-    const webpackConfig = require("../../tools/webpack/config.babel");
+    const webpack = require('webpack');
+    const webpackConfig = require('../../tools/webpack/config.babel');
     const compiler = webpack(webpackConfig);
-    const instance = require("webpack-dev-middleware")(compiler, {
+    const instance = require('webpack-dev-middleware')(compiler, {
         publicPath: webpackConfig.output.publicPath,
-        headers: { "Access-Control-Allow-Origin": "*" },
-        stats: "minimal",
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        stats: 'minimal',
         serverSideRender: true,
         watchOptions: { ignored: /node_modules/ },
     });
@@ -23,10 +24,10 @@ export default (app: Express): void => {
     });
 
     app.use(
-        require("webpack-hot-middleware")(compiler, {
+        require('webpack-hot-middleware')(compiler, {
             log: false,
-            path: "/__webpack_hmr",
+            path: '/__webpack_hmr',
             heartbeat: 10 * 1000,
-        })
+        }),
     );
 };

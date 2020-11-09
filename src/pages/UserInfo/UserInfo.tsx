@@ -1,9 +1,9 @@
-import React, { memo } from "react";
-import { Helmet } from "react-helmet";
-import styles from "./styles.module.scss";
+import React, { memo } from 'react';
+import { Helmet } from 'react-helmet';
+import styles from './styles.module.scss';
 
 type Props = {
-  match: Record<string, any>;
+    match: Record<string, any>;
 };
 
 const UserInfo = ({ match }: Props): JSX.Element => {

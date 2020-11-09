@@ -1,23 +1,23 @@
-import axios from "axios";
+import axios from 'axios';
 
-import config from "../config";
+import config from '../config';
 
 export interface User {
-  id: number;
-  name: string;
-  phone: string;
-  email: string;
-  website: string;
+    id: number;
+    name: string;
+    phone: string;
+    email: string;
+    website: string;
 }
 
 interface UserList {
-  data?: User[];
-  error?: Error;
+    data?: User[];
+    error?: Error;
 }
 
 interface UserData {
-  data?: User;
-  error?: Error;
+    data?: User;
+    error?: Error;
 }
 
 export const getUserList = async (): Promise<UserList> => {
