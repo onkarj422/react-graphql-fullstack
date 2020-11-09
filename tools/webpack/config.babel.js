@@ -17,11 +17,6 @@ const getStyleLoaders = (sass = false) =>
   [
     {
       loader: MiniCssExtractPlugin.loader,
-      options: {
-        hmr: isDev,
-        // If hmr does not work, this is a forceful method
-        reloadAll: true,
-      },
     },
     {
       loader: "css-loader",
