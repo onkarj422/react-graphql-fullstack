@@ -36,5 +36,5 @@ app.get("*", ssr);
 
 // @ts-expect-error
 app.listen(config.PORT, config.HOST, (error) => {
-  if (error) console.error(chalk.red(`==> 😭  OMG!!! ${error}`));
+    if (error) console.error(chalk.red(`==> 😭  OMG!!! ${error}`));
 });

@@ -9,16 +9,16 @@ import routes from "../routes";
 
 const history =
   typeof window === "undefined"
-    ? createMemoryHistory({
-        initialEntries: ["/"],
+      ? createMemoryHistory({
+          initialEntries: ["/"],
       })
-    : createBrowserHistory();
+      : createBrowserHistory();
 
 const render = (Routes: RouteProps[]) =>
-  ReactDOM.hydrate(
-    <Router history={history}>{renderRoutes(Routes)}</Router>,
-    document.getElementById("react-view")
-  );
+    ReactDOM.hydrate(
+        <Router history={history}>{renderRoutes(Routes)}</Router>,
+        document.getElementById("react-view")
+    );
 
 // loadable-component setup
 loadableReady(() => render(routes));

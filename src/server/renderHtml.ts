@@ -2,11 +2,11 @@
 import { minify } from "html-minifier";
 
 export default (
-  head: Record<string, any>,
-  extractor: Record<string, any>,
-  htmlContent: string
+    head: Record<string, any>,
+    extractor: Record<string, any>,
+    htmlContent: string
 ): any => {
-  const html = `
+    const html = `
     <!doctype html>
     <html ${head.htmlAttributes.toString()}>
       <head>
@@ -47,16 +47,16 @@ export default (
     </html>
   `;
 
-  // html-minifier configuration, refer to "https://github.com/kangax/html-minifier" for more configuration
-  const minifyConfig = {
-    collapseWhitespace: true,
-    removeComments: true,
-    trimCustomFragments: true,
-    minifyCSS: true,
-    minifyJS: true,
-    minifyURLs: true,
-  };
+    // html-minifier configuration, refer to "https://github.com/kangax/html-minifier" for more configuration
+    const minifyConfig = {
+        collapseWhitespace: true,
+        removeComments: true,
+        trimCustomFragments: true,
+        minifyCSS: true,
+        minifyJS: true,
+        minifyURLs: true,
+    };
 
-  // Minify html in production
-  return __DEV__ ? html : minify(html, minifyConfig);
+    // Minify html in production
+    return __DEV__ ? html : minify(html, minifyConfig);
 };

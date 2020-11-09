@@ -7,14 +7,14 @@ type Props = {
 };
 
 const UserInfo = ({ match }: Props): JSX.Element => {
-  const { id } = match.params;
+    const { id } = match.params;
 
-  return (
-    <div className={styles.UserInfo}>
-      <Helmet title="User Info" />
-      {id}
-    </div>
-  );
+    return (
+        <div className={styles.UserInfo}>
+            <Helmet title="User Info" />
+            {id}
+        </div>
+    );
 };
 
 export default memo(UserInfo);

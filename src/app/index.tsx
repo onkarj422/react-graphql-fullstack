@@ -14,18 +14,18 @@ interface Route {
 }
 
 const App = ({ route }: Route): JSX.Element => (
-  <div className={styles.App}>
-    <Helmet {...config.APP} />
-    <Link to="/" className={styles.header}>
-      <img src={logo} alt="Logo" role="presentation" />
-      <h1>
-        <em>{config.APP.title}</em>
-      </h1>
-    </Link>
-    <hr />
-    {/* Child routes won't render without this */}
-    {renderRoutes(route.routes)}
-  </div>
+    <div className={styles.App}>
+        <Helmet {...config.APP} />
+        <Link to="/" className={styles.header}>
+            <img src={logo} alt="Logo" role="presentation" />
+            <h1>
+                <em>{config.APP.title}</em>
+            </h1>
+        </Link>
+        <hr />
+        {/* Child routes won't render without this */}
+        {renderRoutes(route.routes)}
+    </div>
 );
 
 export default App;

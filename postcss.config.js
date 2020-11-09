@@ -1,6 +1,6 @@
 module.exports = {
-  plugins: [
+    plugins: [
     // Add "-ms-" prefixes for Grid Layout
-    require("autoprefixer")({ grid: true }),
-  ],
+        require("autoprefixer")({ grid: true }),
+    ],
 };

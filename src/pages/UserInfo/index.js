@@ -11,11 +11,11 @@ import loadable from "@loadable/component";
 import { Loading, ErrorBoundary } from "../../components";
 
 const UserInfo = loadable(() => import("./UserInfo"), {
-  fallback: <Loading />,
+    fallback: <Loading />,
 });
 
 export default (props) => (
-  <ErrorBoundary>
-    <UserInfo {...props} />
-  </ErrorBoundary>
+    <ErrorBoundary>
+        <UserInfo {...props} />
+    </ErrorBoundary>
 );

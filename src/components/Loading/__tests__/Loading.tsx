@@ -5,13 +5,13 @@ import { MemoryRouter } from "react-router-dom";
 import Loading from "../index";
 
 describe("<Loading />", () => {
-  it("renders", () => {
-    const tree = render(
-      <MemoryRouter>
-        <Loading />
-      </MemoryRouter>
-    ).container.firstChild;
+    it("renders", () => {
+        const tree = render(
+            <MemoryRouter>
+                <Loading />
+            </MemoryRouter>
+        ).container.firstChild;
 
-    expect(tree).toMatchSnapshot();
-  });
+        expect(tree).toMatchSnapshot();
+    });
 });

@@ -11,11 +11,11 @@ import loadable from "@loadable/component";
 import { Loading, ErrorBoundary } from "../../components";
 
 const Home = loadable(() => import("./Home"), {
-  fallback: <Loading />,
+    fallback: <Loading />,
 });
 
 export default (props) => (
-  <ErrorBoundary>
-    <Home {...props} />
-  </ErrorBoundary>
+    <ErrorBoundary>
+        <Home {...props} />
+    </ErrorBoundary>
 );

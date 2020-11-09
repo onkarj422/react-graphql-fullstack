@@ -8,13 +8,13 @@ interface Props {
 }
 
 export default memo(({ item }: Props) => (
-  <div className={styles.UserCard}>
-    <h4>User Info</h4>
-    <ul>
-      <li>Name: {item.name}</li>
-      <li>Phone: {item.phone}</li>
-      <li>Email: {item.email}</li>
-      <li>Website: {item.website}</li>
-    </ul>
-  </div>
+    <div className={styles.UserCard}>
+        <h4>User Info</h4>
+        <ul>
+            <li>Name: {item.name}</li>
+            <li>Phone: {item.phone}</li>
+            <li>Email: {item.email}</li>
+            <li>Website: {item.website}</li>
+        </ul>
+    </div>
 ));

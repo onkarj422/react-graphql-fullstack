@@ -21,19 +21,19 @@ interface UserData {
 }
 
 export const getUserList = async (): Promise<UserList> => {
-  try {
-    const { data } = await axios.get(`${config.API_URL}/users`);
-    return { data };
-  } catch (error) {
-    return { error };
-  }
+    try {
+        const { data } = await axios.get(`${config.API_URL}/users`);
+        return { data };
+    } catch (error) {
+        return { error };
+    }
 };
 
 export const getUserData = async (id: string): Promise<UserData> => {
-  try {
-    const { data } = await axios.get(`${config.API_URL}/users/${id}`);
-    return { data };
-  } catch (error) {
-    return { error };
-  }
+    try {
+        const { data } = await axios.get(`${config.API_URL}/users/${id}`);
+        return { data };
+    } catch (error) {
+        return { error };
+    }
 };
