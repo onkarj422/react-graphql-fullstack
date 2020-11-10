@@ -11,13 +11,13 @@
     "@babel/react"
   ],
   "plugins": [
-    "@loadable/babel-plugin",
+    "universal-import",
     "@babel/proposal-class-properties",
     "@babel/plugin-transform-runtime"
   ],
   "env": {
     "development": {
-      "plugins": ["react-refresh/babel"]
+      "plugins": ["react-hot-loader/babel"]
     },
     "production": {
       "plugins": ["transform-remove-console"]

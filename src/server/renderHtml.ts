@@ -3,7 +3,7 @@ import { minify } from 'html-minifier';
 
 export default (
     head: Record<string, any>,
-    extractor: Record<string, any>,
+    { styles, js }: any,
     htmlContent: string,
 ): any => {
     const html = `
@@ -27,8 +27,7 @@ export default (
         ${head.link.toString()}
 
         <!-- Insert bundled styles into <link> tag -->
-        ${extractor.getLinkTags()}
-        ${extractor.getStyleTags()}
+        ${styles}
       </head>
       <body>
         <!-- Insert the router, which passed from server-side -->
@@ -41,7 +40,7 @@ export default (
         </script>
 
         <!-- Insert bundled scripts into <script> tag -->
-        ${extractor.getScriptTags()}
+        ${js}
         ${head.script.toString()}
       </body>
     </html>

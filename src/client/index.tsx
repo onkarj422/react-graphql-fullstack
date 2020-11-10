@@ -1,24 +1,30 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { RouteProps } from 'react-router-dom';
-import { Router } from 'react-router';
-import { renderRoutes } from 'react-router-config';
-import { loadableReady } from '@loadable/component';
-import { createMemoryHistory, createBrowserHistory } from 'history';
-import routes from '../routes';
+import { hydrate } from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
+import App from 'app';
+// import { Router } from 'react-router-dom';
+// import { createMemoryHistory, createBrowserHistory } from 'history';
 
-const history =
-    typeof window === 'undefined'
-        ? createMemoryHistory({
-              initialEntries: ['/'],
-          })
-        : createBrowserHistory();
+// const history =
+//     typeof window === 'undefined'
+//         ? createMemoryHistory({
+//               initialEntries: ['/'],
+//           })
+//         : createBrowserHistory();
 
-const render = (Routes: RouteProps[]) =>
-    ReactDOM.hydrate(
-        <Router history={history}>{renderRoutes(Routes)}</Router>,
+const render = (Boot: () => JSX.Element) =>
+    hydrate(
+        <AppContainer>
+            <Boot />
+        </AppContainer>,
         document.getElementById('react-view'),
     );
 
-// loadable-component setup
-loadableReady(() => render(routes));
+render(App);
+
+if (__DEV__ && module.hot) {
+    module.hot.accept('../app', () => {
+        const NextApp = require('../app').default;
+        render(NextApp);
+    });
+}

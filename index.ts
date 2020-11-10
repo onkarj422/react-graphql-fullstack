@@ -13,4 +13,4 @@ global.__DEV__ = process.env.NODE_ENV === 'development';
 // Run assets require hooks
 require('./tools/webpack/hooks')();
 // Run server
-require('./src/server');
+require('./src/server/index');

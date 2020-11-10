@@ -1,14 +1,12 @@
 import path from 'path';
 import webpack from 'webpack';
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-import ManifestPlugin from 'webpack-manifest-plugin';
 import TerserJSPlugin from 'terser-webpack-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CompressionPlugin from 'compression-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import LoadablePlugin from '@loadable/webpack-plugin';
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -16,7 +14,11 @@ const isDev = process.env.NODE_ENV !== 'production';
 const getStyleLoaders = (sass = false) =>
     [
         {
-            loader: MiniCssExtractPlugin.loader,
+            loader: ExtractCssChunks.loader,
+            options: {
+                hmr: isDev,
+                reloadAll: true,
+            }
         },
         {
             loader: 'css-loader',
@@ -24,10 +26,7 @@ const getStyleLoaders = (sass = false) =>
                 importLoaders: sass ? 2 : 1,
                 modules: {
                     auto: true,
-                    localIdentName: isDev
-                        ? '[name]__[local]'
-                        : '[contenthash:base64:5]',
-                    localIdentContext: path.resolve(process.cwd(), 'src'),
+                    localIdentName: '[name]__[local]--[hash:base64:5]',
                 },
             },
         },
@@ -37,12 +36,15 @@ const getStyleLoaders = (sass = false) =>
 
 // Webpack configuration
 module.exports = {
+    name: 'client',
+    target: 'web',
     mode: isDev ? 'development' : 'production',
     devtool: isDev ? 'eval-source-map' : false,
     stats: 'minimal',
     context: path.resolve(process.cwd()),
     entry: [
-        isDev && 'webpack-hot-middleware/client?reload=true',
+        isDev && 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
+        isDev && 'react-hot-loader/patch',
         './src/client',
     ].filter(Boolean),
     optimization: {
@@ -53,8 +55,8 @@ module.exports = {
         },
     },
     output: {
-        path: path.resolve(process.cwd(), 'public/assets'),
-        publicPath: '/assets/',
+        path: path.resolve(__dirname, '../../public/client'),
+        publicPath: '/public/',
         filename: isDev ? '[name].js' : '[name].[contenthash:8].js',
         chunkFilename: isDev ? '[id].js' : '[id].[contenthash:8].js',
         pathinfo: isDev,
@@ -65,7 +67,6 @@ module.exports = {
                 test: /\.(t|j)sx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
-                options: { cacheDirectory: isDev },
             },
             // All output '.js' files will have any sourcemaps re-processed by source-map-loader.
             // So you can debug your output code as if it was Typescript.
@@ -108,19 +109,18 @@ module.exports = {
         ],
     },
     plugins: [
-        new ManifestPlugin({
-            fileName: path.resolve(process.cwd(), 'public/webpack-assets.json'),
-            filter: file => file.isInitial,
-        }),
-        new LoadablePlugin({
-            writeToDisk: true,
-            filename: '../loadable-stats.json',
-        }),
-        new MiniCssExtractPlugin({
-            // Don't use hash in development, we need the persistent for "renderHtml.ts"
-            filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
-            chunkFilename: isDev ? '[id].css' : '[id].[contenthash:8].css',
-        }),
+        isDev && new WriteFilePlugin(),
+        new ExtractCssChunks(),
+        // new MiniCssExtractPlugin({
+        //     // Don't use hash in development, we need the persistent for "renderHtml.ts"
+        //     filename: isDev ? '[name].css' : '[name].[contenthash:8].css',
+        //     chunkFilename: isDev ? '[id].css' : '[id].[contenthash:8].css',
+        // }),
+        isDev && new webpack.NamedModulesPlugin(), // only needed when server built with webpack
+        isDev && new webpack.HotModuleReplacementPlugin(),
+        isDev && new webpack.NoEmitOnErrorsPlugin(),
+        !isDev && new webpack.optimize.ModuleConcatenationPlugin(),
+        !isDev && new webpack.optimize.OccurrenceOrderPlugin(),
         // Setup global variables for client
         new webpack.DefinePlugin({
             __CLIENT__: true,
@@ -128,11 +128,6 @@ module.exports = {
             __DEV__: isDev,
         }),
         new webpack.ProgressPlugin(),
-        isDev && new webpack.HotModuleReplacementPlugin(),
-        isDev &&
-            new ReactRefreshWebpackPlugin({
-                overlay: { sockIntegration: 'whm' },
-            }),
         // Runs typescript type checker on a separate process
         isDev && new ForkTsCheckerWebpackPlugin(),
         !isDev && new webpack.HashedModuleIdsPlugin(),
@@ -153,5 +148,6 @@ module.exports = {
         modules: ['src', 'node_modules'],
         descriptionFiles: ['package.json'],
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+        alias: { 'react-dom': '@hot-loader/react-dom'  },
     },
 };
