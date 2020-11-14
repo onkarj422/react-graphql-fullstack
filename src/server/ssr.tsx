@@ -1,11 +1,8 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-// import { StaticRouter } from 'react-router-dom';
-// import { renderRoutes } from 'react-router-config';
 import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
-// import { ChunkExtractor } from '@loadable/server';
 import { Helmet } from 'react-helmet';
 import chalk from 'chalk';
 import { Request, Response, NextFunction } from 'express';

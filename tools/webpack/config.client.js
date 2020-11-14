@@ -1,10 +1,10 @@
-import path from 'path';
-import webpack from 'webpack';
-import TerserJSPlugin from 'terser-webpack-plugin';
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import CompressionPlugin from 'compression-webpack-plugin';
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+const path = require('path');
+const webpack = require('webpack');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 
@@ -18,7 +18,7 @@ const getStyleLoaders = (sass = false) =>
             options: {
                 hmr: isDev,
                 reloadAll: true,
-            }
+            },
         },
         {
             loader: 'css-loader',
@@ -43,7 +43,8 @@ module.exports = {
     stats: 'minimal',
     context: path.resolve(process.cwd()),
     entry: [
-        isDev && 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
+        isDev &&
+            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
         isDev && 'react-hot-loader/patch',
         './src/client',
     ].filter(Boolean),
@@ -148,6 +149,6 @@ module.exports = {
         modules: ['src', 'node_modules'],
         descriptionFiles: ['package.json'],
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
-        alias: { 'react-dom': '@hot-loader/react-dom'  },
+        alias: { 'react-dom': '@hot-loader/react-dom' },
     },
 };

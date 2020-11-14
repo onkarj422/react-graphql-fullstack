@@ -1,8 +1,8 @@
+/* eslint-disable react/no-render-return-value */
 import React from 'react';
-import { hydrate } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from 'app';
-// import { Router } from 'react-router-dom';
 // import { createMemoryHistory, createBrowserHistory } from 'history';
 
 // const history =
@@ -12,10 +12,10 @@ import App from 'app';
 //           })
 //         : createBrowserHistory();
 
-const render = (Boot: () => JSX.Element) =>
-    hydrate(
+const render = (Root: () => JSX.Element) =>
+    ReactDOM.hydrate(
         <AppContainer>
-            <Boot />
+            <Root />
         </AppContainer>,
         document.getElementById('react-view'),
     );
@@ -24,7 +24,7 @@ render(App);
 
 if (__DEV__ && module.hot) {
     module.hot.accept('../app', () => {
-        const NextApp = require('../app').default;
-        render(NextApp);
+        const HotRoot = require('../app').default;
+        render(HotRoot);
     });
 }

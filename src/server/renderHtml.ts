@@ -18,9 +18,6 @@ export default (
           <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
         <![endif]-->
 
-        <link rel="apple-touch-icon" href="/logo192.png" />
-        <link rel="manifest" href="/manifest.json" />
-
         ${head.title.toString()}
         ${head.base.toString()}
         ${head.meta.toString()}
