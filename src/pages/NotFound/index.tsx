@@ -1,8 +1,6 @@
 import React, { memo } from 'react';
 import { Helmet } from 'react-helmet';
 
-import styles from './styles.module.scss';
-
 interface Props {
     staticContext?: { status: string };
 }
@@ -14,7 +12,7 @@ const NotFound = ({ staticContext }: Props) => {
     if (staticContext) staticContext.status = '404';
 
     return (
-        <div className={styles.NotFound}>
+        <div>
             <Helmet title="Oops" />
             <p>Oops, Page was not found!</p>
         </div>
