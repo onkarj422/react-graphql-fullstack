@@ -12,16 +12,12 @@ declare module '*.webp';
 declare module '*.css';
 declare module '*.scss';
 
-declare namespace NodeJS {
-    interface Global {
-        __CLIENT__: boolean;
-        __SERVER__: boolean;
-        __DEV__: boolean;
-        $RefreshReg$: () => void;
-        $RefreshSig$$: () => void;
+declare global {
+    namespace NodeJS {
+        interface Global {
+            __CLIENT__: boolean;
+            __SERVER__: boolean;
+            __DEV__: boolean;
+        }
     }
-}
-
-interface Window {
-    __INITIAL_STATE__: Record<string, unknown>;
 }

@@ -5,6 +5,7 @@ export default (
     head: Record<string, any>,
     { styles, js }: any,
     htmlContent: string,
+    muiCss: any,
 ): any => {
     const html = `
     <!doctype html>
@@ -12,8 +13,7 @@ export default (
       <head>
         <meta charset="utf-8" />
         <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         <!--[if IE]>
           <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
         <![endif]-->
@@ -24,6 +24,7 @@ export default (
         ${head.link.toString()}
 
         <!-- Insert bundled styles into <link> tag -->
+        <style id="jss-server-side">${muiCss}</style>
         ${styles}
       </head>
       <body>

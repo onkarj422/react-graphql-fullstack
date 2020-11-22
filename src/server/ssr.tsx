@@ -8,19 +8,22 @@ import chalk from 'chalk';
 import { Request, Response, NextFunction } from 'express';
 import App from 'app';
 import renderHtml from './renderHtml';
+import { ServerStyleSheets } from '@material-ui/core';
 // import routes from '../routes';
 
 export default ({ clientStats, outputPath }: any) => (
-    req: Request,
+    _req: Request,
     res: Response,
     next: NextFunction,
 ) => {
     try {
         const staticContext: Record<string, any> = {};
-        const app = renderToString(<App />);
+        const sheets = new ServerStyleSheets();
+        const app = renderToString(sheets.collect(<App />));
         const chunkNames = flushChunkNames();
         const assets = flushChunks(clientStats, { chunkNames, outputPath });
         const head = Helmet.renderStatic();
+        const muiCss = sheets.toString();
 
         // Check if the render result contains a redirect, if so we need to set
         // the specific status and redirect header and end the response
@@ -30,7 +33,7 @@ export default ({ clientStats, outputPath }: any) => (
         }
 
         const status = staticContext.status === '404' ? 404 : 200;
-        res.status(status).send(renderHtml(head, assets, app));
+        res.status(status).send(renderHtml(head, assets, app, muiCss));
     } catch (error) {
         res.status(404).send('Not Found :(');
         console.error(chalk.red(`==> 😭  Rendering routes error: ${error}`));

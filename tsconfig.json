@@ -3,7 +3,7 @@
         "sourceMap": true,
         "target": "es5",
         "module": "commonjs", //commonjs destroys 'dynamic imports' which is used for code splitting
-        "baseUrl": "./src",
+        "baseUrl": "src",
         "lib": ["dom", "dom.iterable", "esnext"],
         "jsx": "react",
         // Specify module resolution strategy: "node" (Node.js) or "classic" (TypeScript pre-1.6)
@@ -31,5 +31,6 @@
         "noFallthroughCasesInSwitch": true
     },
     "include": ["src/**/*"],
+    "files": ["src/**/*", "src/types/index.d.ts"],
     "exclude": ["node_modules/**", "public/**"]
 }

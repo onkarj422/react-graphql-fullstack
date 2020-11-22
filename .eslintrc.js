@@ -24,7 +24,7 @@ module.exports = {
             },
             typescript: {
                 alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
-                directory: './tsconfig.json',
+                project: './tsconfig.json',
             },
         },
         'import/ignore': ['types'], // Weirdly eslint cannot resolve exports in types folder (try removing this later)
